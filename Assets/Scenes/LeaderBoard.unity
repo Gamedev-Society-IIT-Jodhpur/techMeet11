@@ -550,6 +550,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a3fec5b4ee9c64d934f0a6371b525c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryContainer: {fileID: 0}
+  entryTemplate: {fileID: 0}
+  highscoreEntriesList: []
 --- !u!1 &958231710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1417,7 @@ GameObject:
   - component: {fileID: 1716165198}
   - component: {fileID: 1716165200}
   - component: {fileID: 1716165199}
+  - component: {fileID: 1716165201}
   m_Layer: 5
   m_Name: Check
   m_TagString: Untagged
@@ -1481,6 +1485,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716165197}
   m_CullTransparentMesh: 1
+--- !u!114 &1716165201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716165197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86983a7b7f4f60a4cbda883eee06f5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 2101537958}
 --- !u!1 &1744975862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,7 +2094,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1852192477}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1716165201}
+        m_TargetAssemblyTypeName: CheckScores, Assembly-CSharp
+        m_MethodName: addScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1852192477
 MonoBehaviour:
   m_ObjectHideFlags: 0

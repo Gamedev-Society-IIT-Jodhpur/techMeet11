@@ -29,6 +29,7 @@ public class LocalLeaderboard : MonoBehaviour
         entryTemplate.gameObject.SetActive(false);
         // PlayerPrefs.DeleteAll();
         print(PlayerPrefs.GetString("highscoreTable"));
+        CreateLeaderboard();
     }
 
     public void AddHighscore(int score, string name, long time)
@@ -40,8 +41,7 @@ public class LocalLeaderboard : MonoBehaviour
             Highscores highscores = JsonUtility.FromJson<Highscores>(jsonhighscores);
             highscoreEntriesList = highscores.highscoreEntryList;
         }
-        highscoreEntriesList.Add(highscoreEntry); 
-        CreateLeaderboard();
+        highscoreEntriesList.Add(highscoreEntry);
     }
 
 
