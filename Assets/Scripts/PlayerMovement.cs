@@ -12,10 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private float objectWidth;
     Rigidbody2D body;
     
-    
-    
-
-    
     float vertical;
     float horizontal;
 
@@ -42,12 +38,4 @@ public class PlayerMovement : MonoBehaviour
         body.velocity = dir * step;
         
     }
-
-    
-
-
-    
-
-   
-
 }
