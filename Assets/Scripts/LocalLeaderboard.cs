@@ -2,59 +2,98 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LocalLeaderboard : MonoBehaviour
 {
-    private Transform entryContainer;
-    private Transform entryTemplate;
+    public Transform entryContainer;
+    public Transform entryTemplate;
 
-    private List<HighscoreEntry> highscoreEntriesList;
-    private List<Transform> highscoreEntryTransformList;
+    public List<HighscoreEntry> highscoreEntriesList;
+
+    public static LocalLeaderboard instance;
+
+
+    public static LocalLeaderboard GetInstance()
+    {
+        return instance;
+    }
+
 
     private void Awake()
     {
-        /*entryContainer = transform.Find("highscoreEntryContainer");
+        instance = this;
+        entryContainer = transform;
         entryTemplate = transform.Find("HighscoreEntryTemplate");
 
-        entryTemplate.gameObject.SetActive(false);*/
+        entryTemplate.gameObject.SetActive(false);
+        // PlayerPrefs.DeleteAll();
+        print(PlayerPrefs.GetString("highscoreTable"));
+    }
 
-        highscoreEntriesList = new List<HighscoreEntry>()
+    public void AddHighscore(int score, string name, long time)
+    {
+        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name, timeString = time };
+        string jsonhighscores = PlayerPrefs.GetString("highscoreTable", "");
+        if (jsonhighscores != "")
         {
-            new HighscoreEntry { score = 1000 , name = "A", timeString = 1675607313  },
-            new HighscoreEntry { score = 900 , name = "b", timeString = 1675607313 },
-            new HighscoreEntry { score = 800 , name = "c", timeString = 1675607313 },
-            new HighscoreEntry { score = 700 , name = "d", timeString = 1675607313 },
-            new HighscoreEntry { score = 600 , name = "e", timeString = 1675607313 },
-            new HighscoreEntry { score = 500 , name = "f", timeString = 1675607313 },
-            new HighscoreEntry { score = 400 , name = "g", timeString = 1675607313 },
-        };
+            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonhighscores);
+            highscoreEntriesList = highscores.highscoreEntryList;
+        }
+        highscoreEntriesList.Add(highscoreEntry); 
+        CreateLeaderboard();
+    }
 
-        //string timeString = DateTime.Now.ToString("hh:mm:ss");
-        long timeString = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-        Debug.Log(timeString + " Now ");
-
-        //highscoreEntriesList.
+    private void CreateLeaderboard()
+    {
         highscoreEntriesList.Sort((u1, u2) =>
         {
-            int result = u1.score.CompareTo(u2.score);
-            return result == 0 ? u1.timeString.CompareTo(u2.timeString) : result;
-        });
 
+            int result = u1.timeString.CompareTo(u2.timeString);
+            return result == 0 ? u1.score.CompareTo(u2.score) : result;
+        });
+        int rank = 1;
+        foreach (var item in highscoreEntriesList)
+        {
+            Transform entryTransform = Instantiate(entryTemplate, transform);
+            entryTransform.gameObject.SetActive(true);
+            string rankString;
+            switch (rank)
+            {
+                default:
+                    rankString = rank + "th"; break;
+                case 1:
+                    rankString = "1st"; break;
+                case 2:
+                    rankString = "2nd"; break;
+                case 3:
+                    rankString = "3rd"; break;
+            }
+            entryTransform.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = rankString;
+            entryTransform.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = item.name;
+            entryTransform.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = item.score.ToString();
+
+            rank += 1;
+        }
+        Highscores highscores = new Highscores { highscoreEntryList = highscoreEntriesList };
+        string json = JsonUtility.ToJson(highscores);
+        PlayerPrefs.SetString("highscoreTable", json);
+        PlayerPrefs.Save();
     }
 
 
 
 
 
-    private class Highscores
+    public class Highscores
     {
         public List<HighscoreEntry> highscoreEntryList;
     }
     
     
     [System.Serializable]
-    private class HighscoreEntry
+    public class HighscoreEntry
     {
         public int score;
         public string name;
