@@ -35,12 +35,4 @@ public class PlayerMovement : MonoBehaviour
         body.velocity = dir * step;
         
     }
-
-    
-
-
-    
-
-   
-
 }
