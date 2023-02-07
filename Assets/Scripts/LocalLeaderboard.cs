@@ -38,15 +38,26 @@ public class LocalLeaderboard : MonoBehaviour
         string jsonhighscores = PlayerPrefs.GetString("highscoreTable", "");
         if (jsonhighscores != "")
         {
-            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonhighscores);
-            highscoreEntriesList = highscores.highscoreEntryList;
+            Highscores _highscores = JsonUtility.FromJson<Highscores>(jsonhighscores);
+            highscoreEntriesList = _highscores.highscoreEntryList;
         }
         highscoreEntriesList.Add(highscoreEntry);
+        Highscores highscores = new Highscores { highscoreEntryList = highscoreEntriesList };
+        string json = JsonUtility.ToJson(highscores);
+        PlayerPrefs.SetString("highscoreTable", json);
+        CreateLeaderboard();
     }
 
 
     private void CreateLeaderboard()
     {
+        string jsonhighscores = PlayerPrefs.GetString("highscoreTable", "");
+        //print("jsonhighscores: " + jsonhighscores);
+        if (jsonhighscores != "")
+        {
+            Highscores _highscores = JsonUtility.FromJson<Highscores>(jsonhighscores);
+            highscoreEntriesList = _highscores.highscoreEntryList;
+        }
         highscoreEntriesList.Sort((u1, u2) =>
         {
 
