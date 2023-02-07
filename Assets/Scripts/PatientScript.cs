@@ -19,6 +19,16 @@ public class PatientScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // CIRCLE OF INFLUENCE
+
+        
+
+
+
+
+
+
+
         if(state == -1 && this.gameObject.transform.position.x >= -69) 
         {
             state = 0;
@@ -105,14 +115,24 @@ public class PatientScript : MonoBehaviour
             {
                 penalty++;
                 person.gameObject.tag = "Infected";
-                person.transform.SetParent(this.gameObject.transform.GetChild(penalty + 2));
+                person.transform.SetParent(this.gameObject.transform.GetChild(penalty + 4));
                 person.GetComponent<Rigidbody2D>().isKinematic = true;
                 person.transform.localPosition = Vector3.zero;
                 person.GetComponent<npc_motion>().enabled =false;
                 person.GetComponent<PatientScript>().enabled =false;
                 person.transform.GetChild(0).transform.gameObject.SetActive(true);
+                
+                var circle = GameObject.FindGameObjectWithTag("INFLUENCE");
+        circle.transform.localScale = new Vector3(6.9f*(1+penalty*0.007f),6.9f*(1+penalty*0.007f),0f);
+        RADIUS = RADIUS*(1+penalty*0.007f);
             }
         }
 
+    }
+
+    private void OnDrawGizmos(){
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(this.transform.position,RADIUS);
+        
     }
 }

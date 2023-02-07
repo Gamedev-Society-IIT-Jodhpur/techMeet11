@@ -6,6 +6,9 @@ TagManager:
   tags:
   - person
   - Infected
+  - Mask
+  - INFLUENCE
+  - Ladoo
   layers:
   - Default
   - TransparentFX
