@@ -10,12 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 screenBounds;
     private float objectHeight;
     private float objectWidth;
-    Rigidbody2D body;
-    
-    
-    
+    public Rigidbody2D body;
 
-    
     float vertical;
     float horizontal;
 
@@ -24,14 +20,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         
-        screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
-        body=GetComponent<Rigidbody2D>();
+        // screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+        // objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
+        // objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y; 
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         
