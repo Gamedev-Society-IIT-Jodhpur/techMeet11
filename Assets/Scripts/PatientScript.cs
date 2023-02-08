@@ -21,14 +21,6 @@ public class PatientScript : MonoBehaviour
     {
         // CIRCLE OF INFLUENCE
 
-        
-
-
-
-
-
-
-
         if(state == -1 && this.gameObject.transform.position.x >= -69) 
         {
             state = 0;
@@ -116,7 +108,7 @@ public class PatientScript : MonoBehaviour
                 penalty++;
                 var openpos=penalty;
                 for (int i = 1; i <= penalty; i++){
-                    if(gameObject.transform.GetChild(i+5).GetChildCount()==0){
+                    if(gameObject.transform.GetChild(i+5).childCount==0){
                         openpos = i;
                         break;
                     }
@@ -140,6 +132,5 @@ public class PatientScript : MonoBehaviour
     private void OnDrawGizmos(){
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(this.transform.position,RADIUS);
-        
     }
 }

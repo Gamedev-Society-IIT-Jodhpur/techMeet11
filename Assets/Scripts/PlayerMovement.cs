@@ -30,13 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
-
         fill.fillAmount = health/100f;
-        
 
-
-   
         if(Vector3.Distance(transform.position, patientZero.transform.position)<patientZero.GetComponent<PatientScript>().RADIUS){
             health-= Time.deltaTime * healthfactor;
         }
@@ -46,6 +41,5 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 dir = new Vector2(horizontal, vertical).normalized;
         body.velocity = dir * step;
-        
     }
 }

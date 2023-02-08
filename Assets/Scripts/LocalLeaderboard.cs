@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LocalLeaderboard : MonoBehaviour
 {
-    public Transform entryContainer;
-    public Transform entryTemplate;
+    private Transform entryContainer;
+    private Transform entryTemplate;
 
     public List<HighscoreEntry> highscoreEntriesList;
 
@@ -23,13 +24,15 @@ public class LocalLeaderboard : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        entryContainer = transform;
-        entryTemplate = transform.Find("HighscoreEntryTemplate");
-
-        entryTemplate.gameObject.SetActive(false);
-        // PlayerPrefs.DeleteAll();
-        print(PlayerPrefs.GetString("highscoreTable"));
-        CreateLeaderboard();
+        if(SceneManager.GetActiveScene().name == "LeaderBoard")
+        { 
+            entryContainer = transform;
+            entryTemplate = transform.Find("HighscoreEntryTemplate");
+            entryTemplate.gameObject.SetActive(false);
+            // PlayerPrefs.DeleteAll();
+            print(PlayerPrefs.GetString("highscoreTable"));
+            CreateLeaderboard();
+        }
     }
 
     public void AddHighscore(int score, string name, long time)
@@ -45,7 +48,7 @@ public class LocalLeaderboard : MonoBehaviour
         Highscores highscores = new Highscores { highscoreEntryList = highscoreEntriesList };
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
-        CreateLeaderboard();
+        //CreateLeaderboard();
     }
 
 

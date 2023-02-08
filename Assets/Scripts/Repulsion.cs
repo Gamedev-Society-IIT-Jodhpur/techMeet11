@@ -59,8 +59,7 @@ public class Repulsion : MonoBehaviour
             if(cooldown>10)
             cooldown = 10f;
             else{
-            cooldown += Time.deltaTime*resfactor;
-
+                cooldown += Time.deltaTime*resfactor;
             }
 
         }
