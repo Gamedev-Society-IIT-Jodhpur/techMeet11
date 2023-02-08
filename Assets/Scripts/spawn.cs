@@ -22,12 +22,12 @@ public class spawn : MonoBehaviour
     void spawnobject(){
         // Vector2 randomSpawnPosition = Random.insideUnitCircle*radius;
         var ran = Random.Range(inner_radius, radius);
-        Debug.Log(inner_radius);
-        Debug.Log(radius);
-        Debug.Log("Radius "+ran.ToString()+" radius");
+        // Debug.Log(inner_radius);
+        // Debug.Log(radius);
+        // Debug.Log("Radius "+ran.ToString()+" radius");
         var theta = Random.Range(0,6.283f);
         GameObject cube_=Instantiate(cubePrefab, player.transform.position+new Vector3(ran*Mathf.Cos(theta),ran*Mathf.Sin(theta),0),Quaternion.identity);
-        Debug.Log("Cos " + (ran*Mathf.Cos(theta)).ToString()+" Sin is"+(ran*Mathf.Sin(theta)).ToString());
+        // Debug.Log("Cos " + (ran*Mathf.Cos(theta)).ToString()+" Sin is"+(ran*Mathf.Sin(theta)).ToString());
         var rb = cube_.GetComponent<Rigidbody2D>();
         var t = Random.Range(0f,1f);
         p1=new Vector3(inner_radius,0f,0f)+player.transform.position-cube_.transform.position;

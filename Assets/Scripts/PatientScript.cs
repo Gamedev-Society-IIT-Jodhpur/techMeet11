@@ -114,12 +114,19 @@ public class PatientScript : MonoBehaviour
             if(Vector3.Distance(person.transform.position, this.transform.position) <= RADIUS && person.gameObject.tag == "person")
             {
                 penalty++;
+                var openpos=penalty;
+                for (int i = 1; i <= penalty; i++){
+                    if(gameObject.transform.GetChild(i+5).GetChildCount()==0){
+                        openpos = i;
+                        break;
+                    }
+                }
                 person.gameObject.tag = "Infected";
-                person.transform.SetParent(this.gameObject.transform.GetChild(penalty + 4));
+                person.transform.SetParent(this.gameObject.transform.GetChild(openpos + 5));
                 person.GetComponent<Rigidbody2D>().isKinematic = true;
                 person.transform.localPosition = Vector3.zero;
                 person.GetComponent<npc_motion>().enabled =false;
-                person.GetComponent<PatientScript>().enabled =false;
+                // person.GetComponent<PatientScript>().enabled =false;
                 person.transform.GetChild(0).transform.gameObject.SetActive(true);
                 
                 var circle = GameObject.FindGameObjectWithTag("INFLUENCE");

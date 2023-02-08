@@ -10,6 +10,8 @@ public class Repulsion : MonoBehaviour
     public float force = 10f;
     public float radius = 6f;
     public float cooldown = 10f, consfactor=5f,resfactor=1f;
+    public AudioSource whistle_ads;
+    public AudioClip whistel_ads1;
 
 
 // Start is called before the first frame update
@@ -33,8 +35,15 @@ public class Repulsion : MonoBehaviour
             fill.color = Color.red;
 
         }
-
+        if(Input.GetKeyDown(KeyCode.Space) && cooldown>3f){
+            whistle_ads.Play();
+        }
+        if(Input.GetKeyUp(KeyCode.Space) || cooldown<=3f){
+            whistle_ads.Stop();
+        }
+    
         if(Input.GetKey(KeyCode.Space) && cooldown > 0){
+
             cooldown-=Time.deltaTime*consfactor;
         persons = GameObject.FindGameObjectsWithTag("person");
         for(int i = 0; i < persons.Length; i++){
@@ -46,6 +55,7 @@ public class Repulsion : MonoBehaviour
         }
         }
         else{
+            // whistle_ads.Pause();
             if(cooldown>10)
             cooldown = 10f;
             else{

@@ -9,6 +9,7 @@ TagManager:
   - Mask
   - INFLUENCE
   - Ladoo
+  - O2
   layers:
   - Default
   - TransparentFX
