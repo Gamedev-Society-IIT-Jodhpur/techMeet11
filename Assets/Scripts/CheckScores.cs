@@ -8,6 +8,12 @@ using UnityEngine.SceneManagement;
 public class CheckScores : MonoBehaviour
 {
     public TextMeshProUGUI input;
+
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     //private LocalLeaderboard localLeaderboard;
     public void addScore()
     {

@@ -12,8 +12,14 @@ public class PatientScript : MonoBehaviour
     private float time = 1f;
     public float RADIUS = 2f;
     public int penalty = 0;
-    void Start()
+    public GameObject gameOverScreen;
+    public AudioSource bgm;
+
+    public void GameOver()
     {
+        bgm.Stop();
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -125,6 +131,11 @@ public class PatientScript : MonoBehaviour
         circle.transform.localScale = new Vector3(6.9f*(1+penalty*0.007f),6.9f*(1+penalty*0.007f),0f);
         RADIUS = RADIUS*(1+penalty*0.007f);
             }
+        }
+
+        if (penalty >= 14)
+        {
+            GameOver();
         }
 
     }

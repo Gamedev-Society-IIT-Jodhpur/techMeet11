@@ -12,6 +12,8 @@ public class Collect : MonoBehaviour
     float masktime = 5f;
     public Image maskImg;
 
+    public static int score = 0;
+
 IEnumerator MaskRemover(GameObject player,Vector3 scale,GameObject circle){
     // var RADIUS = patientZero.GetComponent<PatientScript>().RADIUS;
 patientZero.GetComponent<PatientScript>().RADIUS = 0f;
@@ -90,7 +92,7 @@ IEnumerator PatientRecovery(GameObject patient,GameObject circle){
             foreach(var i in list){
                 i.transform.GetChild(1).gameObject.SetActive(true);
                 StartCoroutine(MaskRemover(i,SCALE,circle));
-                
+                score += 1;
             }
 
             Destroy(other.gameObject);
@@ -102,8 +104,8 @@ IEnumerator PatientRecovery(GameObject patient,GameObject circle){
                 gameObject.GetComponent<PlayerMovement>().health=100f;
             }
             else{gameObject.GetComponent<PlayerMovement>().health+=10f;}
-             
-             
+
+            score += 5;
 
             Destroy(other.gameObject);
         }
@@ -111,6 +113,7 @@ IEnumerator PatientRecovery(GameObject patient,GameObject circle){
         if(other.gameObject.tag == "O2"){
             collection_ads.PlayOneShot(collection_ads1,0.7f);
             var pen = patientZero.GetComponent<PatientScript>().penalty;
+            score += 10;
         
             var circle = GameObject.FindGameObjectWithTag("INFLUENCE");
 
